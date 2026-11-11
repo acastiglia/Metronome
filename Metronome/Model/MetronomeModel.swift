@@ -1,0 +1,73 @@
+import Foundation
+import Observation
+
+/// The single source of truth for app state.
+///
+/// Owns a `ClickPlayer` and a `TempoStore`, both passed in through the initializer so tests
+/// can supply their own.
+@Observable
+@MainActor
+final class MetronomeModel {
+    private let player: ClickPlayer
+    private var store: TempoStore
+    private var timeSignatureStore: TimeSignatureStore
+
+    private(set) var isRunning = false
+    var errorMessage: String?
+
+    /// The current tempo. Setting it persists the value via `TempoStore` and, while running,
+    /// forwards it to `ClickPlayer`.
+    var tempo: Tempo {
+        didSet {
+            guard tempo != oldValue else { return }
+            store.tempo = tempo
+            if isRunning {
+                player.setTempo(tempo, timeSignature: timeSignature)
+            }
+        }
+    }
+
+    /// The current time signature. Setting it persists the value via `TimeSignatureStore` and,
+    /// while running, forwards it to `ClickPlayer`.
+    var timeSignature: TimeSignature {
+        didSet {
+            guard timeSignature != oldValue else { return }
+            timeSignatureStore.timeSignature = timeSignature
+            if isRunning {
+                player.setTempo(tempo, timeSignature: timeSignature)
+            }
+        }
+    }
+
+    init(player: ClickPlayer, store: TempoStore = TempoStore(), timeSignatureStore: TimeSignatureStore = TimeSignatureStore()) {
+        self.player = player
+        self.store = store
+        self.timeSignatureStore = timeSignatureStore
+        self.tempo = store.tempo
+        self.timeSignature = timeSignatureStore.timeSignature
+    }
+
+    func start() {
+        do {
+            try player.start(tempo: tempo, timeSignature: timeSignature)
+            isRunning = true
+            errorMessage = nil
+        } catch {
+            errorMessage = "Couldn't start: \(error.localizedDescription)"
+        }
+    }
+
+    func stop() {
+        player.stop()
+        isRunning = false
+    }
+
+    func toggle() {
+        isRunning ? stop() : start()
+    }
+
+    /// The fraction of the current beat that has elapsed (0 ≤ phase < 1).
+    func beatPhase(at date: Date = .now) -> Double {
+        player.beatPhase() ?? 0
+    }
+}
