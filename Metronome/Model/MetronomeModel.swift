@@ -67,7 +67,18 @@ final class MetronomeModel {
     }
 
     /// The fraction of the current beat that has elapsed (0 ≤ phase < 1).
+    ///
+    /// `date` is unused — the real clock is the audio player's sample time. `BeatIndicator` calls
+    /// this from a `TimelineView(.animation)`, passing `context.date` each tick to give SwiftUI a
+    /// reason to re-invalidate the view.
     func beatPhase(at date: Date = .now) -> Double {
         player.beatPhase() ?? 0
+    }
+
+    /// The index of the current beat within the measure (0..<timeSignature.beats).
+    ///
+    /// `date` is unused, for the same reason as in `beatPhase(at:)`.
+    func beatIndex(at date: Date = .now) -> Int {
+        player.beatIndex() ?? 0
     }
 }

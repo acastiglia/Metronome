@@ -120,6 +120,17 @@ final class ClickPlayer {
         return grid.phase(at: frame)
     }
 
+    /// The index of the current beat within the measure (0..<timeSignature.beats), or `nil` while
+    /// stopped.
+    func beatIndex() -> Int? {
+        guard let session,
+              let frame = currentFrame(),
+              let grid = session.beatGrids.last(where: { $0.startFrame <= frame }) else {
+            return nil
+        }
+        return grid.beatIndex(at: frame)
+    }
+
     private func restartAfterConfigurationChange() {
         guard let session else { return }
         stop()
@@ -148,6 +159,11 @@ private struct BeatGrid {
 
     func phase(at frame: AVAudioFramePosition) -> Double {
         Double((frame - startFrame) % framesPerBeat) / Double(framesPerBeat)
+    }
+
+    /// The index of the beat `frame` falls in, within the measure (0..<beatsPerMeasure).
+    func beatIndex(at frame: AVAudioFramePosition) -> Int {
+        Int((frame - startFrame) / framesPerBeat) % beatsPerMeasure
     }
 
     /// The frame at which the currently-looping measure buffer will next restart from its

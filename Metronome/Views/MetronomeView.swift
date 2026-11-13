@@ -11,6 +11,8 @@ struct MetronomeView: View {
 
             TimeSignatureControl(timeSignature: $model.timeSignature)
 
+            BeatIndicator()
+
             Button {
                 model.toggle()
             } label: {
@@ -26,6 +28,10 @@ struct MetronomeView: View {
             }
         }
         .padding(40)
+        .overlay(alignment: .topTrailing) {
+            HelpButton()
+                .padding(12)
+        }
         .contentShape(Rectangle())
         .onTapGesture {
             isTempoFieldFocused = false
