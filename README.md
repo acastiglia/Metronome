@@ -2,7 +2,7 @@
 
 <img src="./screenshot.png" alt="Screenshot of the app" width="320">
 
-A simple macOS metronome. No ads, just clicks.
+A simple macOS metronome.
 
 ## Requirements
 
