@@ -1,5 +1,7 @@
 # Metronome
 
+<img src="./screenshot.png" alt="Screenshot of the app" width="320">
+
 A simple, native macOS metronome. Set a tempo and time signature, press start, and hear a steady click — accented on the downbeat — until you press stop.
 
 ## Features
