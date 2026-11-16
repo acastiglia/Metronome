@@ -17,9 +17,14 @@ struct MetronomeView: View {
                 Button {
                     model.toggle()
                 } label: {
-                    Text(model.isRunning ? "Stop" : "Start")
-                        .frame(minWidth: 80)
+                    Label(
+                        model.isRunning ? "Stop" : "Start",
+                        systemImage: model.isRunning ? "stop.fill" : "play.fill"
+                    )
+                    .frame(minWidth: 100)
                 }
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.capsule)
                 .controlSize(.large)
                 .keyboardShortcut(.space, modifiers: [])
             }
