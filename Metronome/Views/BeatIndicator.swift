@@ -21,19 +21,24 @@ struct BeatIndicator: View {
     private static let minimumDotDiameter: CGFloat = 6
     private static let restingOpacity = 0.25
     private static let decayDuration = 0.15
+    private static let glowRadiusScale: CGFloat = 0.75
 
     var body: some View {
         TimelineView(.animation(paused: !model.isRunning)) { context in
             let beats = model.timeSignature.beats
             let currentBeat = model.beatIndex(at: context.date)
-            let diameter = dotDiameter(for: beats)
+            let baseDiameter = dotDiameter(for: beats)
 
-            HStack(spacing: diameter / 2) {
+            HStack(spacing: baseDiameter / 2) {
                 ForEach(0..<beats, id: \.self) { beat in
                     Circle()
                         .fill(beat == litBeat ? Color.accentColor : Color.primary)
-                        .frame(width: diameter, height: diameter)
+                        .frame(width: baseDiameter, height: baseDiameter)
                         .opacity(beat == litBeat ? brightness : Self.restingOpacity)
+                        .shadow(
+                            color: beat == litBeat ? .accentColor.opacity(brightness) : .clear,
+                            radius: beat == litBeat ? baseDiameter * Self.glowRadiusScale * brightness : 0
+                        )
                 }
             }
             .accessibilityHidden(true)
