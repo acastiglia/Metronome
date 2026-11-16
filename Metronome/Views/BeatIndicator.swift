@@ -36,8 +36,7 @@ struct BeatIndicator: View {
                         .opacity(beat == litBeat ? brightness : Self.restingOpacity)
                 }
             }
-            .accessibilityElement()
-            .accessibilityLabel("Beat \(currentBeat + 1) of \(beats)")
+            .accessibilityHidden(true)
             .onChange(of: currentBeat) { _, newBeat in
                 flash(beat: newBeat)
             }
