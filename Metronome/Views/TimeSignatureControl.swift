@@ -6,6 +6,7 @@ struct TimeSignatureControl: View {
     @Binding var timeSignature: TimeSignature
 
     @State private var isPresented = false
+    @State private var isHovering = false
 
     private static let noteValues: [TimeSignature.NoteValue] = [.whole, .half, .quarter, .eighth]
 
@@ -13,10 +14,26 @@ struct TimeSignatureControl: View {
         Button {
             isPresented = true
         } label: {
-            Text("\(timeSignature.beats)/\(timeSignature.noteValue.rawValue)")
-                .font(.title2.monospacedDigit())
+            HStack(spacing: 4) {
+                Text("\(timeSignature.beats)/\(timeSignature.noteValue.rawValue)")
+                    .font(.title2.monospacedDigit())
+                Image(systemName: "chevron.down")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(
+                Capsule()
+                    .fill(Color.primary.opacity(isHovering ? 0.08 : 0))
+            )
         }
         .buttonStyle(.plain)
+        .onHover { hovering in
+            withAnimation(.easeOut(duration: 0.1)) {
+                isHovering = hovering
+            }
+        }
         .popover(isPresented: $isPresented) {
             HStack(spacing: 8) {
                 Stepper(value: beatsBinding, in: TimeSignature.range) {
