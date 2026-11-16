@@ -16,9 +16,10 @@ struct TimeSignatureControl: View {
         } label: {
             HStack(spacing: 4) {
                 Text("\(timeSignature.beats)/\(timeSignature.noteValue.rawValue)")
-                    .font(.title2.monospacedDigit())
+                    .font(.title3.monospacedDigit())
+                    .foregroundStyle(.secondary)
                 Image(systemName: "chevron.down")
-                    .font(.caption)
+                    .font(.caption2)
                     .foregroundStyle(.secondary)
             }
             .padding(.horizontal, 12)

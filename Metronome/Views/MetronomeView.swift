@@ -6,21 +6,23 @@ struct MetronomeView: View {
 
     var body: some View {
         @Bindable var model = model
-        VStack(spacing: 24) {
+        VStack(spacing: 32) {
             BeatIndicator()
 
             TempoControl(tempo: $model.tempo, isFocused: $isTempoFieldFocused)
 
-            TimeSignatureControl(timeSignature: $model.timeSignature)
+            VStack(spacing: 16) {
+                TimeSignatureControl(timeSignature: $model.timeSignature)
 
-            Button {
-                model.toggle()
-            } label: {
-                Text(model.isRunning ? "Stop" : "Start")
-                    .frame(minWidth: 80)
+                Button {
+                    model.toggle()
+                } label: {
+                    Text(model.isRunning ? "Stop" : "Start")
+                        .frame(minWidth: 80)
+                }
+                .controlSize(.large)
+                .keyboardShortcut(.space, modifiers: [])
             }
-            .controlSize(.large)
-            .keyboardShortcut(.space, modifiers: [])
 
             if let errorMessage = model.errorMessage {
                 Text(errorMessage)

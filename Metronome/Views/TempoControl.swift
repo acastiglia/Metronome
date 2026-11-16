@@ -12,7 +12,7 @@ struct TempoControl: View {
     @State private var text = ""
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: 28) {
             Group {
                 if isEditing {
                     TextField("BPM", text: $text)
@@ -24,7 +24,7 @@ struct TempoControl: View {
                         .onTapGesture(perform: beginEditing)
                 }
             }
-            .font(.system(size: 48, weight: .semibold, design: .rounded))
+            .font(.system(size: 64, weight: .semibold, design: .rounded))
             .monospacedDigit()
             .frame(minWidth: 220)
             .onChange(of: isFocused.wrappedValue) {
