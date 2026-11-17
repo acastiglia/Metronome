@@ -58,7 +58,9 @@ final class ClickPlayer {
             throw ClickPlayerError.unsupportedSampleRate(sampleRate)
         }
         engine.connect(playerNode, to: engine.mainMixerNode, format: synthesizer.format)
-        try engine.start()
+        if !engine.isRunning {
+            try engine.start()
+        }
 
         let buffer = synthesizer.measureBuffer(for: tempo, timeSignature: timeSignature)
         playerNode.scheduleBuffer(buffer, at: nil, options: .loops, completionHandler: nil)
@@ -103,9 +105,12 @@ final class ClickPlayer {
         self.session = session
     }
 
+    /// Stops the player node but leaves the engine running, so the next `start()` only has to
+    /// schedule a buffer instead of paying for `AVAudioEngine`'s hardware warm-up again — `pause()`
+    /// stops the audio hardware just as `stop()` does, so cycling it on every Stop press was
+    /// reintroducing the same latency `init`'s eager warm-up was meant to avoid.
     func stop() {
         playerNode.stop()
-        engine.pause()
         session = nil
     }
 
