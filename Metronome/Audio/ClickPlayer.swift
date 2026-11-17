@@ -24,10 +24,17 @@ final class ClickPlayer {
         session != nil
     }
 
+    /// Preallocates the engine's render resources up front so the first real `start()` isn't
+    /// delayed by that setup. Skipped for engines tests put in manual rendering mode, where
+    /// preparing before the render graph is fully connected makes `renderOffline` fail.
+    ///
     /// - Parameter engine: The engine to play through. Tests can pass one in manual rendering mode.
     init(engine: AVAudioEngine = AVAudioEngine()) {
         self.engine = engine
         engine.attach(playerNode)
+        if !engine.isInManualRenderingMode {
+            engine.prepare()
+        }
         configurationObservation = NotificationObservation(
             name: .AVAudioEngineConfigurationChange,
             object: engine
