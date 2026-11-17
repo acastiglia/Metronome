@@ -33,6 +33,7 @@ final class ClickPlayer {
         self.engine = engine
         engine.attach(playerNode)
         if !engine.isInManualRenderingMode {
+            _ = engine.outputNode
             engine.prepare()
         }
         configurationObservation = NotificationObservation(
