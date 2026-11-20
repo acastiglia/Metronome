@@ -17,6 +17,7 @@
 		F2C64799C6991CFE3DADA2D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C1AFC4F23D1580B12A211D6 /* Assets.xcassets */; };
 		FC1F4EEF30A6701500296D3A /* BeatIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1F4EEE30A6701500296D3A /* BeatIndicator.swift */; };
 		FC1F4EF330A7CA5E00296D3A /* HelpButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1F4EF230A7CA5E00296D3A /* HelpButton.swift */; };
+		FC1F4EF730AB7E8F00296D3A /* TapTempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC1F4EF630AB7E8F00296D3A /* TapTempo.swift */; };
 		FC46876F30950355009CE10C /* TimeSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC46876E30950355009CE10C /* TimeSignature.swift */; };
 		FC60F0093091617B00C6EA5C /* TempoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60F0083091617B00C6EA5C /* TempoStore.swift */; };
 		FC60F00B3091617E00C6EA5C /* MetronomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC60F00A3091617E00C6EA5C /* MetronomeModel.swift */; };
@@ -62,6 +63,7 @@
 		E54342594BF4F8A41328D64E /* MetronomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetronomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC1F4EEE30A6701500296D3A /* BeatIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatIndicator.swift; sourceTree = "<group>"; };
 		FC1F4EF230A7CA5E00296D3A /* HelpButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpButton.swift; sourceTree = "<group>"; };
+		FC1F4EF630AB7E8F00296D3A /* TapTempo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempo.swift; sourceTree = "<group>"; };
 		FC4687633093EFF5009CE10C /* MetronomeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetronomeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC46876E30950355009CE10C /* TimeSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignature.swift; sourceTree = "<group>"; };
 		FC60F0083091617B00C6EA5C /* TempoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoStore.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				FC60F00A3091617E00C6EA5C /* MetronomeModel.swift */,
 				FC46876E30950355009CE10C /* TimeSignature.swift */,
 				FCB5E06330A22A48006D601F /* TimeSignatureStore.swift */,
+				FC1F4EF630AB7E8F00296D3A /* TapTempo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				FC46876F30950355009CE10C /* TimeSignature.swift in Sources */,
 				540D93EB1D83DFCE4CEAD339 /* ClickSynthesizer.swift in Sources */,
 				FCB5E06630A22A7A006D601F /* TimeSignatureControl.swift in Sources */,
+				FC1F4EF730AB7E8F00296D3A /* TapTempo.swift in Sources */,
 				FC60F01130925A6D00C6EA5C /* TempoControl.swift in Sources */,
 				93457CDCA48AF81F9A2ED3FB /* MetronomeApp.swift in Sources */,
 				DF7FECD470C51999D15595B0 /* MetronomeView.swift in Sources */,

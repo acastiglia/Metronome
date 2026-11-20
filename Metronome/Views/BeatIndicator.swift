@@ -33,7 +33,7 @@ struct BeatIndicator: View {
                 ForEach(0..<beats, id: \.self) { beat in
                     Circle()
                         .fill(beat == litBeat ? Color.accentColor : Color.primary)
-                        .frame(width: baseDiameter, height: baseDiameter)
+                    .frame(width: baseDiameter, height: baseDiameter)
                         .opacity(beat == litBeat ? brightness : Self.restingOpacity)
                         .shadow(
                             color: beat == litBeat ? .accentColor.opacity(brightness) : .clear,
