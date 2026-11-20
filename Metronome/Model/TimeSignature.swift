@@ -15,7 +15,7 @@ struct TimeSignature: Equatable, Hashable, Sendable {
     let beats: Int
     let noteValue: NoteValue
 
-enum NoteValue: Int {
+    enum NoteValue: Int {
         case whole   = 1
         case half    = 2
         case quarter = 4

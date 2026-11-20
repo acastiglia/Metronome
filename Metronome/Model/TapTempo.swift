@@ -9,31 +9,30 @@ import Foundation
 
 struct TapTempo {
     
-    let minTaps = 4
+    private static let minTaps = 4
     
-    var taps: [Double] = []
-    var tapIndex = 0
-    
-    var preivousTap: Date? = .none
+    private var taps: [Double] = []
+    private var tapIndex = 0
+    private var previousTap: Date? = nil
     
     mutating func tap() -> Int? {
         let now = Date.now
-        if let lastTap = preivousTap {
+        if let lastTap = previousTap {
             let elapsed = now.timeIntervalSince(lastTap)
-            if (taps.count) < minTaps {
+            if taps.count < Self.minTaps {
                 taps.append(elapsed)
             } else {
                 taps[tapIndex] = elapsed
-                tapIndex = (tapIndex + 1) % minTaps
+                tapIndex = (tapIndex + 1) % Self.minTaps
             }
         }
         
-        preivousTap = now
+        previousTap = now
         return computeTempo()
     }
     
     private func computeTempo() -> Int? {
-        if (taps.count < minTaps) {
+        if taps.count < Self.minTaps {
             return .none
         }
         

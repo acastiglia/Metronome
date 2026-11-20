@@ -44,7 +44,7 @@ final class MetronomeModel {
     }
 
     init(player: ClickPlayer, store: TempoStore = TempoStore(), timeSignatureStore: TimeSignatureStore = TimeSignatureStore()) {
-        self.player = player
+    self.player = player
         self.store = store
         self.timeSignatureStore = timeSignatureStore
         self.tempo = store.tempo
