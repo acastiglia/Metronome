@@ -27,7 +27,7 @@ struct HelpButton: View {
                         Text("Start / stop")
                     }
                     GridRow {
-                        Text("⌃Space")
+                        Text("T")
                             .foregroundStyle(.secondary)
                         Text("Tap tempo")
                     }

@@ -13,7 +13,6 @@ final class MetronomeModel {
     private var timeSignatureStore: TimeSignatureStore
 
     private(set) var isRunning = false
-    private(set) var tapping = false
     var errorMessage: String?
 
     private var tapTempo: TapTempo?
@@ -78,7 +77,6 @@ final class MetronomeModel {
         if tapTempo == nil {
             if isRunning { stop() }
             tapTempo = TapTempo()
-            tapping = true
         }
 
         if let bpm = tapTempo?.tap() {
@@ -97,7 +95,6 @@ final class MetronomeModel {
         tapDiscardTask?.cancel()
         tapDiscardTask = nil
         tapTempo = nil
-        tapping = false
     }
 
     /// The fraction of the current beat that has elapsed (0 ≤ phase < 1).

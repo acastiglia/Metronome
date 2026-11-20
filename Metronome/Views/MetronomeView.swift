@@ -26,11 +26,11 @@ struct MetronomeView: View {
                     }
                     .keyboardShortcut(.space, modifiers: [])
 
-                    Button("Tap") {
+                    Button("Tap", systemImage: "cursorarrow.click") {
                         model.tap()
                     }
                     .buttonStyle(.bordered)
-                    .keyboardShortcut(.space, modifiers: [.control])
+                    .keyboardShortcut(KeyEquivalent("T"), modifiers: [])
                 }
                 .buttonStyle(.borderedProminent)
                 .buttonBorderShape(.capsule)
