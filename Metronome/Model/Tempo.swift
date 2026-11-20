@@ -2,7 +2,7 @@ import Foundation
 
 /// A metronome tempo in beats per minute, always clamped to ``Tempo/range``.
 struct Tempo: Equatable, Hashable, Sendable {
-static let range: ClosedRange<Int> = 30...300
+    static let range: ClosedRange<Int> = 30...300
     static let defaultTempo = Tempo(bpm: 120)
 
     let bpm: Int

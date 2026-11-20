@@ -14,19 +14,27 @@ struct MetronomeView: View {
             VStack(spacing: 16) {
                 TimeSignatureControl(timeSignature: $model.timeSignature)
 
-                Button {
-                    model.toggle()
-                } label: {
-                    Label(
-                        model.isRunning ? "Stop" : "Start",
-                        systemImage: model.isRunning ? "stop.fill" : "play.fill"
-                    )
-                    .frame(minWidth: 100)
+                HStack(spacing: 16) {
+                    Button {
+                        model.toggle()
+                    } label: {
+                        Label(
+                            model.isRunning ? "Stop" : "Start",
+                            systemImage: model.isRunning ? "stop.fill" : "play.fill"
+                        )
+                        .frame(minWidth: 100)
+                    }
+                    .keyboardShortcut(.space, modifiers: [])
+
+                    Button("Tap", systemImage: "cursorarrow.click") {
+                        model.tap()
+                    }
+                    .buttonStyle(.bordered)
+                    .keyboardShortcut(KeyEquivalent("T"), modifiers: [])
                 }
                 .buttonStyle(.borderedProminent)
                 .buttonBorderShape(.capsule)
                 .controlSize(.large)
-                .keyboardShortcut(.space, modifiers: [])
             }
 
             if let errorMessage = model.errorMessage {

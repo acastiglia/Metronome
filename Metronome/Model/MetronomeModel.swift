@@ -15,6 +15,9 @@ final class MetronomeModel {
     private(set) var isRunning = false
     var errorMessage: String?
 
+    private var tapTempo: TapTempo?
+    private var tapDiscardTask: Task<Void, Never>?
+
     /// The current tempo. Setting it persists the value via `TempoStore` and, while running,
     /// forwards it to `ClickPlayer`.
     var tempo: Tempo {
@@ -40,7 +43,7 @@ final class MetronomeModel {
     }
 
     init(player: ClickPlayer, store: TempoStore = TempoStore(), timeSignatureStore: TimeSignatureStore = TimeSignatureStore()) {
-        self.player = player
+    self.player = player
         self.store = store
         self.timeSignatureStore = timeSignatureStore
         self.tempo = store.tempo
@@ -48,6 +51,7 @@ final class MetronomeModel {
     }
 
     func start() {
+        endTapping()
         do {
             try player.start(tempo: tempo, timeSignature: timeSignature)
             isRunning = true
@@ -64,6 +68,33 @@ final class MetronomeModel {
 
     func toggle() {
         isRunning ? stop() : start()
+    }
+
+    /// Registers a tap for tap-tempo detection, updating ``tempo`` once enough taps have been
+    /// recorded. The tap sequence is discarded after a 2 second pause between taps, or
+    /// immediately if the player is started.
+    func tap() {
+        if tapTempo == nil {
+            if isRunning { stop() }
+            tapTempo = TapTempo()
+        }
+
+        if let bpm = tapTempo?.tap() {
+            tempo = Tempo(bpm: bpm)
+        }
+
+        tapDiscardTask?.cancel()
+        tapDiscardTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(2))
+            guard !Task.isCancelled else { return }
+            self?.endTapping()
+        }
+    }
+
+    private func endTapping() {
+        tapDiscardTask?.cancel()
+        tapDiscardTask = nil
+        tapTempo = nil
     }
 
     /// The fraction of the current beat that has elapsed (0 ≤ phase < 1).
