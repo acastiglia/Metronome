@@ -29,6 +29,7 @@ struct MetronomeView: View {
                     Button("Tap") {
                         model.tap()
                     }
+                    .buttonStyle(.bordered)
                     .keyboardShortcut(.space, modifiers: [.control])
                 }
                 .buttonStyle(.borderedProminent)
